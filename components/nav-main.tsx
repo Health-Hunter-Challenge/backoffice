@@ -7,6 +7,7 @@ import {
 	LayoutDashboard,
 	type LucideIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 import {
 	Collapsible,
@@ -44,15 +45,19 @@ export function NavMain({
 
 			<SidebarMenu>
 				<SidebarMenuItem>
-					<SidebarMenuButton tooltip={"aaa"}>
-						<LayoutDashboard />
-						<span>Dashboard</span>
+					<SidebarMenuButton asChild tooltip={"Dashboard"}>
+						<Link href="/dashboard">
+							<LayoutDashboard />
+							<span>Dashboard</span>
+						</Link>
 					</SidebarMenuButton>
 				</SidebarMenuItem>
 				<SidebarMenuItem>
-					<SidebarMenuButton tooltip={"aaa"}>
-						<Bell />
-						<span>Notifications</span>
+					<SidebarMenuButton asChild tooltip={"Notifications"}>
+						<Link href="/notifications">
+							<Bell />
+							<span>Notifications</span>
+						</Link>
 					</SidebarMenuButton>
 				</SidebarMenuItem>
 			</SidebarMenu>
@@ -77,9 +82,9 @@ export function NavMain({
 									{item.items?.map((subItem) => (
 										<SidebarMenuSubItem key={subItem.title}>
 											<SidebarMenuSubButton asChild>
-												<a href={subItem.url}>
+												<Link href={subItem.url}>
 													<span>{subItem.title}</span>
-												</a>
+												</Link>
 											</SidebarMenuSubButton>
 										</SidebarMenuSubItem>
 									))}
