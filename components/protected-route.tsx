@@ -10,8 +10,12 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 	const router = useRouter();
 
 	useEffect(() => {
-		if (!isLoading && !user) {
-			router.push("/login");
+		if (!isLoading) {
+			if (!user) {
+				router.push("/login");
+			} else if (user.role !== "admin") {
+				router.push("/unauthorized");
+			}
 		}
 	}, [user, isLoading, router]);
 
@@ -24,7 +28,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 		);
 	}
 
-	if (!user) {
+	if (!user || user.role !== "admin") {
 		return null;
 	}
 
