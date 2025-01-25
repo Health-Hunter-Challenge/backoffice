@@ -9,67 +9,67 @@ export const SIDEBAR_DATA = {
 	navMain: [
 		{
 			title: "Fitness",
-			url: "#",
+			url: "/fitness",
 			icon: BicepsFlexed,
 			isActive: true,
 			items: [
 				{
 					title: "Overview",
-					url: "#",
+					url: "/fitness/overview",
 				},
 				{
 					title: "People",
-					url: "#",
+					url: "/fitness/people",
 				},
 				{
 					title: "Workouts",
-					url: "#",
+					url: "/fitness/workouts",
 				},
 				{
 					title: "Exercises",
-					url: "#",
+					url: "/fitness/exercises",
 				},
 				{
 					title: "Movements",
-					url: "#",
+					url: "/fitness/movements",
 				},
 			],
 		},
 		{
 			title: "Nutrition",
-			url: "#",
+			url: "/nutrition",
 			icon: Apple,
 			isActive: true,
 			items: [
 				{
 					title: "Overview",
-					url: "#",
+					url: "/nutrition/overview",
 				},
 				{
 					title: "People",
-					url: "#",
+					url: "/nutrition/people",
 				},
 				{
 					title: "Meals",
-					url: "#",
+					url: "/nutrition/meals",
 				},
 				{
 					title: "Foods",
-					url: "#",
+					url: "/nutrition/foods",
 				},
 				{
 					title: "Recipes",
-					url: "#",
+					url: "/nutrition/recipes",
 				},
 				{
 					title: "Settings",
-					url: "#",
+					url: "/nutrition/settings",
 				},
 			],
 		},
 		{
 			title: "Settings",
-			url: "#",
+			url: "/settings",
 			icon: LayoutDashboard,
 			isActive: true,
 			items: [],

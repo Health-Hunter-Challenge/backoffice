@@ -4,7 +4,7 @@ export interface User {
 	name: string;
 	document: string;
 	birthday: string;
-	role: "admin" | "user";
+	role: "ADMIN" | "user";
 	createdAt: string;
 	updatedAt: string;
 	address?: {

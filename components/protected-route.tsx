@@ -13,7 +13,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 		if (!isLoading) {
 			if (!user) {
 				router.push("/login");
-			} else if (user.role !== "admin") {
+			} else if (user.role !== "ADMIN") {
 				router.push("/unauthorized");
 			}
 		}
@@ -28,7 +28,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 		);
 	}
 
-	if (!user || user.role !== "admin") {
+	if (!user || user.role !== "ADMIN") {
 		return null;
 	}
 

@@ -2,8 +2,13 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "@/types/user";
-import { getStoredToken, getStoredUser, storeAuthData, clearAuthData } from "@/lib/auth";
+import type { User } from "@/types/user";
+import {
+	getStoredToken,
+	getStoredUser,
+	storeAuthData,
+	clearAuthData,
+} from "@/lib/auth";
 import { API_ENDPOINTS } from "@/config/api";
 
 interface AuthContextType {
@@ -28,6 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			if (token && storedUser) {
 				try {
 					const response = await fetch(API_ENDPOINTS.verify, {
+						method: "POST",
 						headers: {
 							Authorization: `Bearer ${token}`,
 						},
