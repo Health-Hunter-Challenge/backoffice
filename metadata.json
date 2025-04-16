@@ -1,0 +1,10 @@
+{
+  "name": "Ewi Pro Fit",
+  "description": "A fitness platform",
+  "version": "1.0.0",
+  "author": "",
+  "created_at": "2024-06-11",
+  "directory": "backoffice",
+  "tags": ["fitness", "platform", "web", "nextjs"],
+  "license": ""
+} 
