@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 interface VideoForm {
   file: File;
@@ -22,6 +23,8 @@ interface VideoForm {
 
 export default function AddMovementPage() {
   const [videos, setVideos] = useState<VideoForm[]>([]);
+  const [uploadStatus, setUploadStatus] = useState<string[]>([]);
+  const router = useRouter();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -45,6 +48,52 @@ export default function AddMovementPage() {
     setVideos(updatedVideos);
   };
 
+  const uploadVideos = async () => {
+    setUploadStatus(Array(videos.length).fill("Uploading..."));
+    const results: string[] = [];
+    let allSuccess = true;
+    for (let i = 0; i < videos.length; i++) {
+      const video = videos[i];
+      const formData = new FormData();
+      formData.append("file", video.file);
+      formData.append("name", video.name);
+      formData.append("description", video.description);
+      formData.append("level", video.level);
+      try {
+        const res = await fetch("http://localhost:3000/videos/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (!res.ok) throw new Error("Upload failed");
+        const data = await res.json();
+        
+        // Handle new response format
+        if (data.success && data.movement) {
+          results[i] = data.movement.url;
+          setUploadStatus((prev) => {
+            const next = [...prev];
+            next[i] = "Uploaded and saved to database!";
+            return next;
+          });
+        } else {
+          throw new Error("Upload response format invalid");
+        }
+      } catch (err) {
+        results[i] = "";
+        allSuccess = false;
+        setUploadStatus((prev) => {
+          const next = [...prev];
+          next[i] = "Failed";
+          return next;
+        });
+      }
+    }
+    // Redirect if all uploads succeeded
+    if (allSuccess) {
+      router.push("/fitness/movements");
+    }
+  };
+
   return (
     <div className="container">
       <h1 className="mb-6 text-2xl font-bold">Add New Movements</h1>
@@ -58,6 +107,14 @@ export default function AddMovementPage() {
           className="w-full"
         />
       </div>
+
+      <button
+        className="mb-4 rounded bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
+        onClick={uploadVideos}
+        disabled={videos.length === 0}
+      >
+        Upload All Videos
+      </button>
 
       <div className="grid grid-cols-3 gap-4">
         {videos.map((video, index) => (
@@ -118,6 +175,9 @@ export default function AddMovementPage() {
                     </SelectContent>
                   </Select>
                 </div>
+                {uploadStatus[index] && (
+                  <div className="text-sm text-gray-600">{uploadStatus[index]}</div>
+                )}
               </div>
             </CardContent>
           </Card>
